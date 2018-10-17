@@ -4,7 +4,7 @@ public class Polinomio {
 	private int grado;
 	private double[] coeficientes;
 	
-	public Polinomio(double[] coeficientes){
+	public Polinomio(double[] coeficientes) {
 		this.grado = coeficientes.length;
 		this.coeficientes = coeficientes;
 	}
@@ -14,7 +14,7 @@ public class Polinomio {
 		this.coeficientes = coeficientes;
 	}
 	
-	public static double powMia(double x, int i){
+	public static double powMia(double x, int i) {
 		int aux = 1;
 		for (int j = 0; j < i; j++) {
 			aux *= x;
@@ -22,7 +22,7 @@ public class Polinomio {
 		return aux;
 	}
 	
-	public double evaluarMsucesivas(double x){
+	public double evaluarMsucesivas(double x) {
 		int aux = 0;
 		for (int i = 0; i < this.grado; i++) {
 			aux += coeficientes[i] * Polinomio.powRec(x, this.grado - i -1);
@@ -30,11 +30,15 @@ public class Polinomio {
 		return aux;
 	}
 	
+	public double evaluarProgDinamica(double x) {
+		return 1.0;
+	}
+	
 	public static double evaluarIndiceParapow(double x,int i) {
 		return i % 2 == 0 ? powRec(x * x, i / 2) : powRec(x, i);
 	}
 	
-	public static double powRec( double x, int i){
+	public static double powRec( double x, int i) {
 		if (i == 1) {
 			return x;
 		} else if (i == 0) {
@@ -44,7 +48,7 @@ public class Polinomio {
 	}
 	
 	
-	public double evaluarRecursiva( double x){
+	public double evaluarRecursiva( double x) {
 		int aux = 0;
 		for (int i = 0; i < this.grado; i++){
 			aux += coeficientes[i] * (x * powRec(x, this.grado - i - 2));
