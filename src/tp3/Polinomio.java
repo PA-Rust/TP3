@@ -5,7 +5,7 @@ public class Polinomio {
 	private double[] coeficientes;
 	
 	public Polinomio(double[] coeficientes) {
-		this.grado = coeficientes.length;
+		this.grado = coeficientes.length-1;
 		this.coeficientes = coeficientes;
 	}
 	
@@ -14,13 +14,7 @@ public class Polinomio {
 		this.coeficientes = coeficientes;
 	}
 	
-	public static double powMia(double x, int i) {
-		int aux = 1;
-		for (int j = 0; j < i; j++) {
-			aux *= x;
-		}
-		return aux;
-	}
+	
 	
 	public double evaluarMsucesivas(double x) {
 		int aux = 0;
@@ -31,7 +25,22 @@ public class Polinomio {
 	}
 	
 	public double evaluarProgDinamica(double x) {
-		return 1.0;
+		double sumador=0;
+		double potencias_dinamicas[] = new double[this.grado+1];
+		int aux=this.grado;
+		
+		potencias_dinamicas[0]=1;
+		potencias_dinamicas[1]=x;
+		
+		for (int i = 2; i <=this.grado; i++)
+			potencias_dinamicas[i]= potencias_dinamicas[i-1]*x;
+		
+		for(double d: this.coeficientes) {
+			sumador += d*potencias_dinamicas[aux];
+			aux--;
+		}
+		
+		return sumador;
 	}
 	
 	public static double evaluarIndiceParapow(double x,int i) {
@@ -46,6 +55,25 @@ public class Polinomio {
 		}
 		return (x * powRec(x, i - 1));
 	}
+	
+	public static double powMia(double x, int i) {
+		int aux = 1;
+		for (int j = 0; j < i; j++) {
+			aux *= x;
+		}
+		return aux;
+	}
+	
+	public double evaluarHorner(double x) {
+	        double result = coeficientes[0];   
+	   
+	        for (int i=1; i<coeficientes.length; i++) 
+	            result = result*x + coeficientes[i]; 
+	   
+	        return result; 
+	    
+	}
+	
 	
 	
 	public double evaluarRecursiva( double x) {
